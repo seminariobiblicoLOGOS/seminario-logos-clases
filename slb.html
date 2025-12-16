@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seminario Bíblico Logos - Clases Grabadas</title>
+    <!-- Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        
+        /* Definición de la paleta de colores corporativos más VIBRANTES */
+        :root {
+            --color-negro: #0a3352; /* AZUL OSCURO (Primary) */
+            --color-amarillo: #fad02c; /* AMARILLO (Accent 1) */
+            --color-verde: #10b981; /* VERDE ESMERALDA (Accent 2 - Nuevo acento principal) */
+            --color-naranja: #f97316; /* NARANJA VIBRANTE (Accent 3) */
+            --color-celeste-claro: #e0f2fe; /* AZUL CIENTO (Light Background de módulos) */
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Tailwind slate-50 */
+        }
+
+        /* Estilos generales */
+        .bg-primary { background-color: var(--color-negro); }
+        .text-primary { color: var(--color-negro); }
+        .text-accent-1 { color: var(--color-amarillo); }
+        .text-accent-2 { color: var(--color-verde); }
+        .text-accent-3 { color: var(--color-naranja); }
+        .border-accent { border-color: var(--color-verde); }
+        .bg-light-module { background-color: var(--color-celeste-claro); }
+
+        /* Estilos para encabezado de módulos con borde inferior de color */
+        .card-header-1 { border-bottom-color: var(--color-amarillo); }
+        .card-header-2 { border-bottom-color: var(--color-verde); }
+        .card-header-3 { border-bottom-color: var(--color-naranja); }
+        .card-header-4 { border-bottom-color: var(--color-negro); }
+        .module-icon { color: inherit; } 
+        
+        /* Asignación de color de íconos */
+        .card-header-1 .module-icon { color: var(--color-amarillo); }
+        .card-header-2 .module-icon { color: var(--color-verde); }
+        .card-header-3 .module-icon { color: var(--color-naranja); }
+        .card-header-4 .module-icon { color: var(--color-negro); }
+
+
+        /* Animaciones y transiciones */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos para pestañas */
+        .tab-btn.active {
+            border-bottom: 3px solid var(--color-verde); 
+            color: var(--color-negro);
+            font-weight: 700;
+        }
+        .tab-btn {
+            color: #6b7280; /* gray-500 */
+            font-weight: 500;
+        }
+        .tab-btn:hover {
+             color: var(--color-verde);
+        }
+
+        /* Estilos de botones de YouTube */
+        .youtube-btn {
+            border-width: 2px;
+            transition: all 0.3s ease; 
+        }
+        .youtube-btn:hover {
+            background-color: var(--color-negro) !important;
+            color: white !important;
+            box-shadow: 0 10px 15px -3px rgba(10, 51, 82, 0.4), 0 4px 6px -2px rgba(10, 51, 82, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* WhatsApp Float & Copy Button Styles */
+        .whatsapp-float {
+            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
+            background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center;
+            font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; animation: pulse-green 2s infinite;
+        }
+        .whatsapp-float:hover {
+            background-color: #128C7E; transform: scale(1.1); color: white;
+        }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .copy-btn { transition: all 0.2s; cursor: pointer; }
+        .copy-btn:hover { color: var(--color-verde); transform: scale(1.1); }
+
+        /* Custom Checkbox */
+        .custom-checkbox input:checked + div {
+            background-color: var(--color-verde);
+            border-color: var(--color-verde);
+        }
+        .custom-checkbox input:checked + div svg {
+            display: block;
+        }
+
+        /* Estilos para el botón de descarga en la sección de documentos */
+        .download-btn {
+            background-color: var(--color-negro);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        /* Modificadores de hover para botones de descarga */
+        .download-btn.hover-accent-1:hover {
+            background-color: var(--color-amarillo);
+            color: var(--color-negro);
+            box-shadow: 0 4px 6px rgba(250, 208, 44, 0.5); /* Sombra amarilla */
+            transform: translateY(-1px);
+        }
+        .download-btn.hover-accent-2:hover {
+            background-color: var(--color-verde);
+            color: white;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.5); /* Sombra verde */
+            transform: translateY(-1px);
+        }
+        .download-btn.hover-accent-3:hover {
+            background-color: var(--color-naranja);
+            color: white;
+            box-shadow: 0 4px 6px rgba(249, 115, 22, 0.5); /* Sombra naranja */
+            transform: translateY(-1px);
+        }
+        .download-btn.hover-accent-primary:hover {
+            background-color: var(--color-negro);
+            color: white;
+            box-shadow: 0 4px 6px rgba(10, 51, 82, 0.5); /* Sombra azul */
+            transform: translateY(-1px);
+        }
+        
+        /* Estilos para la sección de Herramientas (Grid ahora, no carrusel) */
+        .tool-card .description {
+            /* Asegura que el texto se ajuste dentro de la tarjeta */
+            word-wrap: break-word;
+            white-space: normal;
+        }
+        /* Ajuste de Pestañas: 5 columnas en móvil/md, flex en desktop */
+        .tabs-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.25rem; /* gap-1 */
+        }
+        @media (min-width: 768px) {
+            .tabs-grid {
+                display: flex;
+                justify-content: flex-start;
+                gap: 1rem; /* space-x-4 */
+                padding-bottom: 0;
+            }
+        }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/56971765198" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- LÓGICA JAVASCRIPT (Copiado, Checkbox y Visor PDF) -->
+    <script>
+        // LÓGICA DE COPIADO
+        function copyToClipboard(textToCopy, element) {
+            // Elimina espacios, puntos y guiones para la copia limpia del RUT/Cuenta
+            const cleanText = textToCopy.replace(/[\s\.\-]/g, ''); 
+            const input = document.createElement('textarea');
+            input.value = cleanText;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+
+            const originalIcon = element.innerHTML;
+            const originalColor = element.style.color;
+
+            element.innerHTML = '<i class="fa-solid fa-check"></i>';
+            element.style.color = 'var(--color-verde)'; 
+            
+            setTimeout(() => {
+                element.innerHTML = originalIcon;
+                element.style.color = originalColor;
+            }, 1500);
+        }
+
+        // LÓGICA PARA CHECKBOXES DE PROGRESO (LOCAL STORAGE)
+        function toggleProgress(id) {
+            const checkbox = document.getElementById(id);
+            const isChecked = checkbox.checked;
+            
+            if (isChecked) {
+                localStorage.setItem(id, 'seen');
+            } else {
+                localStorage.removeItem(id);
+            }
+        }
+        function loadProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][id^="prog-"]');
+            checkboxes.forEach(chk => {
+                if(localStorage.getItem(chk.id) === 'seen') {
+                    chk.checked = true;
+                }
+            });
+        }
+
+        // LÓGICA DEL VISOR DE PDF INCRUSTADO
+        function openPdfViewer(url, title) {
+            const modal = document.getElementById('pdfViewerModal');
+            const iframe = document.getElementById('pdfIframe');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            // 1. Establecer título
+            modalTitle.textContent = title || "Previsualización de Documento";
+
+            // 2. Formatear la URL para visualización incrustada de Google Drive
+            let fileIdMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)\//);
+            let embedUrl = url;
+
+            if (fileIdMatch && fileIdMatch[1]) {
+                const fileId = fileIdMatch[1];
+                embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+            }
+
+            // 3. Cargar iframe y mostrar modal
+            iframe.src = embedUrl;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevenir scroll de fondo
+        }
+
+        function closePdfViewer() {
+            const modal = document.getElementById('pdfViewerModal');
+            const iframe = document.getElementById('pdfIframe');
+            
+            modal.classList.add('hidden');
+            iframe.src = ""; // Limpiar y detener la carga del iframe
+            document.body.style.overflow = 'auto'; // Restaurar scroll
+        }
+    </script>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div id="main-content" class="flex-grow flex flex-col">
+        
+        <!-- Header -->
+        <header class="bg-primary text-white shadow-xl">
+            <div class="container mx-auto px-4 py-8 md:py-10 relative">
+                <div class="flex flex-col justify-center items-center">
+                    <div class="text-center">
+                        <!-- AJUSTADO: Se usa bg-accent-3 (NARANJA) y texto blanco para alto contraste -->
+                        <span class="bg-accent-3 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md" style="background-color: var(--color-naranja);">RECURSOS EN VIVO</span>
+                        <div class="mt-3">
+                            <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Seminario Bíblico Logos</h1>
+                        </div>
+                        <p class="text-gray-300 mt-2 text-xl font-light">Accede a tus clases y materiales</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Contenedor Principal -->
+        <main class="container mx-auto px-4 py-8 max-w-6xl flex-grow">
+
+            <!-- 3. SECCIÓN DE ANUNCIOS Y ALERTAS ACADÉMICAS -->
+            <div class="mb-8 p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-xl shadow-md flex items-start gap-4" role="alert">
+                <i class="fa-solid fa-bell text-2xl text-yellow-600 mt-1 flex-shrink-0"></i>
+                <div>
+                    <h3 class="font-bold text-yellow-800 text-lg mb-1">Aviso Académico Importante</h3>
+                    <p class="text-yellow-700 font-semibold">
+                        Recuerda mantener tu mensualidad al día.
+                    </p>
+                    <a onclick="switchTab('transfer')" href="#" class="text-sm mt-1 inline-block font-medium text-yellow-800 hover:text-yellow-900 underline transition-colors">
+                        Ver datos de transferencia <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Pestañas de Navegación (Ajustado a 5 columnas) -->
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 mb-8 sticky top-0 z-10 p-2 relative">
+                <!-- Se cambió de grid-cols-4 a la clase tabs-grid que define 5 columnas para móvil/md -->
+                <div class="tabs-grid">
+                    <button onclick="switchTab('year3')" id="tab-year3" class="tab-btn active px-2 md:px-6 py-3 text-sm md:text-lg transition-all duration-300 focus:outline-none rounded-lg flex justify-center items-center gap-1 md:gap-2">
+                        <i class="fa-solid fa-book-open"></i> <span class="hidden md:inline">3° Año</span><span class="md:hidden">3°</span>
+                    </button>
+                    <button onclick="switchTab('year6')" id="tab-year6" class="tab-btn px-2 md:px-6 py-3 text-sm md:text-lg transition-all duration-300 focus:outline-none rounded-lg flex justify-center items-center gap-1 md:gap-2">
+                        <i class="fa-solid fa-graduation-cap"></i> <span class="hidden md:inline">6° Año</span><span class="md:hidden">6°</span>
+                    </button>
+                    <button onclick="switchTab('documents')" id="tab-documents" class="tab-btn px-2 md:px-6 py-3 text-sm md:text-lg transition-all duration-300 focus:outline-none rounded-lg flex justify-center items-center gap-1 md:gap-2">
+                        <i class="fa-solid fa-file-pdf"></i> <span class="hidden md:inline">Documentos</span><span class="md:hidden">Docs</span>
+                    </button>
+                    <button onclick="switchTab('transfer')" id="tab-transfer" class="tab-btn px-2 md:px-6 py-3 text-sm md:text-lg transition-all duration-300 focus:outline-none rounded-lg flex justify-center items-center gap-1 md:gap-2">
+                        <i class="fa-solid fa-money-bill-transfer"></i> <span class="hidden md:inline">Transferencias</span><span class="md:hidden">Transf.</span>
+                    </button>
+                    <!-- NUEVA PESTAÑA: Herramientas -->
+                    <button onclick="switchTab('tools')" id="tab-tools" class="tab-btn px-2 md:px-6 py-3 text-sm md:text-lg transition-all duration-300 focus:outline-none rounded-lg flex justify-center items-center gap-1 md:gap-2">
+                        <i class="fa-solid fa-wrench"></i> <span class="hidden md:inline">Herramientas</span><span class="md:hidden">Tools</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONTENIDO 3° AÑO -->
+            <div id="content-year3" class="fade-in">
+                <div class="mb-8">
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary border-l-8 border-accent border-l-[var(--color-verde)] pl-4 rounded-l-lg">Materias de Tercer Año</h2>
+                    <p class="text-gray-500 mt-2 pl-6 text-lg">Accede a las listas de reproducción completas para cada materia.</p>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+                    <!-- Teología Juanina -->
+                    <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-gray-100 relative group hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-light-module p-4 border-b-4 card-header-1 flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div>
+                                <h3 class="font-extrabold text-primary text-xl lg:text-2xl">Teología Juanina</h3>
+                            </div>
+                            <i class="fa-solid fa-book-bible text-2xl module-icon mt-2 md:mt-0"></i> 
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <!-- CHECKBOX DE PROGRESO -->
+                            <label class="custom-checkbox flex items-center cursor-pointer mb-4 w-fit select-none">
+                                <input type="checkbox" id="prog-y3-m1" class="hidden" onchange="toggleProgress('prog-y3-m1')">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white flex items-center justify-center transition-colors mr-2">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-500 hover:text-gray-700">Marcar como visto</span>
+                            </label>
+                            
+                            <p class="text-gray-700 mb-4">
+                                Estudio profundo de los escritos del apóstol Juan: Evangelio, Epístolas y conceptos teológicos clave.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-gray-50 mt-auto">
+                            <a href="https://www.youtube.com/playlist?list=PLuSCiEP67LZruyjDUVjsjodoP562s4IWP" target="_blank" class="youtube-btn block w-full text-center bg-white border-2 border-primary text-primary font-bold py-3 px-4 rounded-xl shadow-md">
+                                <i class="fa-brands fa-youtube mr-2"></i> Ver Lista de Clases
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Hechos -->
+                    <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-light-module p-4 border-b-4 card-header-2 flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div>
+                                <h3 class="font-extrabold text-primary text-xl lg:text-2xl">Hechos de los Apóstoles</h3>
+                            </div>
+                            <i class="fa-solid fa-earth-americas text-2xl module-icon mt-2 md:mt-0"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <!-- CHECKBOX DE PROGRESO -->
+                            <label class="custom-checkbox flex items-center cursor-pointer mb-4 w-fit select-none">
+                                <input type="checkbox" id="prog-y3-m2" class="hidden" onchange="toggleProgress('prog-y3-m2')">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white flex items-center justify-center transition-colors mr-2">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-500 hover:text-gray-700">Marcar como visto</span>
+                            </label>
+
+                            <p class="text-gray-700 mb-4">
+                                Historia de la iglesia primitiva, los viajes misioneros y la expansión del evangelio.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-gray-50 mt-auto">
+                            <a href="https://www.youtube.com/playlist?list=PLuSCiEP67LZojs9wxnDLaNqXjwLjsCCzx" target="_blank" class="youtube-btn block w-full text-center bg-white border-2 border-primary text-primary font-bold py-3 px-4 rounded-xl shadow-md">
+                                <i class="fa-brands fa-youtube mr-2"></i> Ver Lista de Clases
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Poéticos -->
+                    <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-light-module p-4 border-b-4 card-header-3 flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div>
+                                <h3 class="font-extrabold text-primary text-xl lg:text-2xl">Libros Poéticos</h3>
+                            </div>
+                            <i class="fa-solid fa-feather-pointed text-2xl module-icon mt-2 md:mt-0"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <!-- CHECKBOX DE PROGRESO -->
+                            <label class="custom-checkbox flex items-center cursor-pointer mb-4 w-fit select-none">
+                                <input type="checkbox" id="prog-y3-m3" class="hidden" onchange="toggleProgress('prog-y3-m3')">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white flex items-center justify-center transition-colors mr-2">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-500 hover:text-gray-700">Marcar como visto</span>
+                            </label>
+
+                            <p class="text-gray-700 mb-4">
+                                Análisis literario y espiritual de Salmos, Proverbios, Job, Eclesiastés y Cantares.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-gray-50 mt-auto">
+                            <a href="https://www.youtube.com/playlist?list=PLuSCiEP67LZqcFShdUPDp3BImSGxqKwD5" target="_blank" class="youtube-btn block w-full text-center bg-white border-2 border-primary text-primary font-bold py-3 px-4 rounded-xl shadow-md">
+                                <i class="fa-brands fa-youtube mr-2"></i> Ver Lista de Clases
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Romanos -->
+                    <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-light-module p-4 border-b-4 card-header-4 flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div>
+                                <h3 class="font-extrabold text-primary text-xl lg:text-2xl">Epístola a los Romanos</h3>
+                            </div>
+                            <i class="fa-solid fa-scroll text-2xl module-icon mt-2 md:mt-0"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <!-- CHECKBOX DE PROGRESO -->
+                            <label class="custom-checkbox flex items-center cursor-pointer mb-4 w-fit select-none">
+                                <input type="checkbox" id="prog-y3-m4" class="hidden" onchange="toggleProgress('prog-y3-m4')">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white flex items-center justify-center transition-colors mr-2">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-500 hover:text-gray-700">Marcar como visto</span>
+                            </label>
+
+                            <p class="text-gray-700 mb-4">
+                                Exposición doctrinal fundamental sobre la justificación, la fe y la vida cristiana.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-gray-50 mt-auto">
+                            <a href="https://www.youtube.com/playlist?list=PLuSCiEP67LZodLZEnIy0zGZvna1RhHjvZ" target="_blank" class="youtube-btn block w-full text-center bg-white border-2 border-primary text-primary font-bold py-3 px-4 rounded-xl shadow-md">
+                                <i class="fa-brands fa-youtube mr-2"></i> Ver Lista de Clases
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENIDO 6° AÑO -->
+            <div id="content-year6" class="hidden">
+                <div class="mb-8">
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary border-l-8 border-accent border-l-[var(--color-verde)] pl-4 rounded-l-lg">Materias de Sexto Año</h2>
+                    <p class="text-gray-500 mt-2 pl-6 text-lg">Estudios avanzados y preparación ministerial.</p>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+                    <!-- Cartas Paulinas II -->
+                    <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-light-module p-4 border-b-4 card-header-1 flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div>
+                                <h3 class="font-extrabold text-primary text-xl lg:text-2xl">Cartas Paulinas II</h3>
+                            </div>
+                            <i class="fa-solid fa-envelope-open-text text-2xl module-icon mt-2 md:mt-0"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <!-- CHECKBOX DE PROGRESO -->
+                            <label class="custom-checkbox flex items-center cursor-pointer mb-4 w-fit select-none">
+                                <input type="checkbox" id="prog-y6-m1" class="hidden" onchange="toggleProgress('prog-y6-m1')">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white flex items-center justify-center transition-colors mr-2">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-500 hover:text-gray-700">Marcar como visto</span>
+                            </label>
+
+                            <p class="text-gray-700 mb-4">
+                                Estudio continuado de las epístolas del apóstol Pablo y su aplicación eclesial.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-gray-50 mt-auto">
+                            <a href="https://www.youtube.com/playlist?list=PLuSCiEP67LZoykWRcE4cp0IWqpzGSXkPP" target="_blank" class="youtube-btn block w-full text-center bg-white border-2 border-primary text-primary font-bold py-3 px-4 rounded-xl shadow-md">
+                                <i class="fa-brands fa-youtube mr-2"></i> Ver Lista de Clases
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Escatología -->
+                    <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-light-module p-4 border-b-4 card-header-2 flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div>
+                                <h3 class="font-extrabold text-primary text-xl lg:text-2xl">Escatología</h3>
+                            </div>
+                            <i class="fa-solid fa-hourglass-half text-2xl module-icon mt-2 md:mt-0"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <!-- CHECKBOX DE PROGRESO -->
+                            <label class="custom-checkbox flex items-center cursor-pointer mb-4 w-fit select-none">
+                                <input type="checkbox" id="prog-y6-m2" class="hidden" onchange="toggleProgress('prog-y6-m2')">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white flex items-center justify-center transition-colors mr-2">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-500 hover:text-gray-700">Marcar como visto</span>
+                            </label>
+
+                            <p class="text-gray-700 mb-4">
+                                Doctrina de las últimas cosas, profecía bíblica y el plan final de Dios.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-gray-50 mt-auto flex flex-col gap-2">
+                            <a href="https://www.youtube.com/playlist?list=PLuSCiEP67LZrNZV1m5ga66lO8gjC5jgx7" target="_blank" class="youtube-btn block w-full text-center bg-white border-2 border-primary text-primary font-bold py-3 px-4 rounded-xl shadow-md">
+                                <i class="fa-brands fa-youtube mr-2"></i> Ver Lista de Clases
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Discipulado Dinámico -->
+                    <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-light-module p-4 border-b-4 card-header-3 flex justify-between items-start md:items-center">
+                            <div>
+                                <h3 class="font-extrabold text-primary text-xl lg:text-2xl">Discipulado Dinámico</h3>
+                            </div>
+                            <i class="fa-solid fa-people-arrows text-2xl module-icon mt-2 md:mt-0"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <!-- CHECKBOX DE PROGRESO -->
+                            <label class="custom-checkbox flex items-center cursor-pointer mb-4 w-fit select-none">
+                                <input type="checkbox" id="prog-y6-m3" class="hidden" onchange="toggleProgress('prog-y6-m3')">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white flex items-center justify-center transition-colors mr-2">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-500 hover:text-gray-700">Marcar como visto</span>
+                            </label>
+
+                            <p class="text-gray-700 mb-4">
+                                Herramientas prácticas para la formación de creyentes y liderazgo efectivo.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-gray-50 mt-auto">
+                            <a href="https://www.youtube.com/playlist?list=PLuSCiEP67LZoWJDwZDjrFQkXo2o9CrCxl" target="_blank" class="youtube-btn block w-full text-center bg-white border-2 border-primary text-primary font-bold py-3 px-4 rounded-xl shadow-md">
+                                <i class="fa-brands fa-youtube mr-2"></i> Ver Lista de Clases
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Epístolas Universales -->
+                    <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-light-module p-4 border-b-4 card-header-4 flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div>
+                                <h3 class="font-extrabold text-primary text-xl lg:text-2xl">Epístolas Universales</h3>
+                            </div>
+                            <i class="fa-solid fa-globe text-2xl module-icon mt-2 md:mt-0"></i>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <!-- CHECKBOX DE PROGRESO -->
+                            <label class="custom-checkbox flex items-center cursor-pointer mb-4 w-fit select-none">
+                                <input type="checkbox" id="prog-y6-m4" class="hidden" onchange="toggleProgress('prog-y6-m4')">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white flex items-center justify-center transition-colors mr-2">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-500 hover:text-gray-700">Marcar como visto</span>
+                            </label>
+
+                            <p class="text-gray-700 mb-4">
+                                Santiago, Pedro, Juan y Judas: Exhortaciones a la iglesia general.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-gray-50 mt-auto">
+                            <a href="https://www.youtube.com/playlist?list=PLuSCiEP67LZpg_W3L6NG-6NYehfSd76Zf" target="_blank" class="youtube-btn block w-full text-center bg-white border-2 border-primary text-primary font-bold py-3 px-4 rounded-xl shadow-md">
+                                <i class="fa-brands fa-youtube mr-2"></i> Ver Lista de Clases
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CONTENIDO DOCUMENTOS OFICIALES -->
+            <div id="content-documents" class="hidden">
+                <div class="mb-8">
+                    <!-- Tipografía Mejorada -->
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary border-l-8 border-accent border-l-[var(--color-verde)] pl-4 rounded-l-lg">Documentos y Materiales de Descarga</h2>
+                    <p class="text-gray-500 mt-2 pl-6 text-lg">Material esencial para la administración y el estudio del Seminario Bíblico Logos.</p>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+                    <!-- Presentación SBL - Ícono Amarillo (Accent 1) -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 flex items-center gap-4 border border-gray-100 hover:shadow-primary/20 transition-shadow duration-300">
+                        <i class="fa-solid fa-file-powerpoint text-5xl text-accent-1"></i> 
+                        <div class="flex-grow">
+                            <p class="font-semibold text-primary text-lg mb-1">Presentación SBL</p>
+                            <p class="text-sm text-gray-500">Documento informativo general sobre el seminario.</p>
+                        </div>
+                        <button 
+                            onclick="openPdfViewer('https://drive.google.com/file/d/1V_-0a-twN2D32Vyyt3sd43-dOg3KJqsr/view?usp=sharing', 'Presentación SBL')" 
+                            class="download-btn hover-accent-1 flex-shrink-0 font-semibold py-2 px-4 rounded-lg shadow-md"
+                            title="Ver documento incrustado"
+                        >
+                            <i class="fa-solid fa-eye mr-1"></i> Ver
+                        </button>
+                    </div>
+                    
+                    <!-- Ficha de inscripción SBL - Ícono Verde (Accent 2) -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 flex items-center gap-4 border border-gray-100 hover:shadow-primary/20 transition-shadow duration-300">
+                        <i class="fa-solid fa-user-plus text-5xl text-accent-2"></i> 
+                        <div class="flex-grow">
+                            <p class="font-semibold text-primary text-lg mb-1">Ficha de Inscripción SBL</p>
+                            <p class="text-sm text-gray-500">Formulario oficial para nuevos alumnos.</p>
+                        </div>
+                        <button 
+                            onclick="openPdfViewer('https://drive.google.com/file/d/1Hcz4WPzfrLrpiwri8uWWz-GgyHdau-Y5/view?usp=sharing', 'Ficha de Inscripción SBL')" 
+                            class="download-btn hover-accent-2 flex-shrink-0 font-semibold py-2 px-4 rounded-lg shadow-md"
+                            title="Ver documento incrustado"
+                        >
+                            <i class="fa-solid fa-eye mr-1"></i> Ver
+                        </button>
+                    </div>
+
+                    <!-- Guía de Estudio - Ícono Naranja (Accent 3) -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 flex items-center gap-4 border border-gray-100 hover:shadow-primary/20 transition-shadow duration-300">
+                        <i class="fa-solid fa-map-marked-alt text-5xl text-accent-3"></i> 
+                        <div class="flex-grow">
+                            <p class="font-semibold text-primary text-lg mb-1">Guía de Estudio</p>
+                            <p class="text-sm text-gray-500">Material de apoyo para estudios bíblicos y devocionales personales.</p>
+                        </div>
+                        <button 
+                            onclick="openPdfViewer('https://drive.google.com/file/d/1nyZAGF437N5uzoM8x0H8uv9UKblAkgwX/view?usp=sharing', 'Guía de Estudio')" 
+                            class="download-btn hover-accent-3 flex-shrink-0 font-semibold py-2 px-4 rounded-lg shadow-md"
+                            title="Ver documento incrustado"
+                        >
+                            <i class="fa-solid fa-eye mr-1"></i> Ver
+                        </button>
+                    </div>
+
+                    <!-- Meditaciones del libro de Hechos - Ícono Azul/Primary -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 flex items-center gap-4 border border-gray-100 hover:shadow-primary/20 transition-shadow duration-300">
+                        <i class="fa-solid fa-lightbulb text-5xl text-primary"></i> 
+                        <div class="flex-grow">
+                            <p class="font-semibold text-primary text-lg mb-1">Meditaciones del Libro de Hechos</p>
+                            <p class="text-sm text-gray-500">Material de apoyo para la materia de Hechos de los Apóstoles.</p>
+                        </div>
+                        <button 
+                            onclick="openPdfViewer('https://drive.google.com/file/d/1CrTlbPfMyY-w-qMvk6qHNYaT4dI40eBk/view?usp=sharing', 'Meditaciones del Libro de Hechos')" 
+                            class="download-btn hover-accent-primary flex-shrink-0 font-semibold py-2 px-4 rounded-lg shadow-md"
+                            title="Ver documento incrustado"
+                        >
+                            <i class="fa-solid fa-eye mr-1"></i> Ver
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENIDO PESTAÑA: TRANSFERENCIAS (Pagos) -->
+            <div id="content-transfer" class="hidden">
+                <div class="mb-8">
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary border-l-8 border-accent border-l-[var(--color-verde)] pl-4 rounded-l-lg">Datos de Transferencia</h2>
+                    <p class="text-gray-500 mt-2 pl-6 text-lg">Información oficial para pagos de matrícula y mensualidad.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Columna Izquierda: Datos Bancarios -->
+                    <div class="lg:col-span-2 space-y-8">
+                        
+                        <!-- Tarjeta Bancaria Principal -->
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 relative">
+                            <div class="absolute top-0 left-0 w-full h-2 bg-primary"></div>
+                            <div class="p-8 md:p-10">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div class="bg-primary/10 p-4 rounded-full">
+                                        <i class="fa-solid fa-university text-3xl text-primary"></i>
+                                    </div>
+                                    <h3 class="text-xl md:text-2xl font-bold text-primary">Cuenta Corriente - Banco Estado</h3>
+                                </div>
+                                
+                                <div class="space-y-4 text-gray-700">
+                                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100 shadow-sm">
+                                        <p class="text-sm text-gray-500 uppercase tracking-wide font-semibold">Titular</p>
+                                        <p class="text-lg md:text-xl font-bold text-gray-800">IGLESIA METODISTA PENTECOSTAL CAMINO AL CIELO</p>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <!-- Campo RUT con botón de copiar -->
+                                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-100 shadow-sm">
+                                            <p class="text-sm text-gray-500 uppercase tracking-wide font-semibold">RUT</p>
+                                            <div class="flex items-center justify-between">
+                                                <p id="rutValue" class="text-xl font-mono font-bold text-gray-800">65.007.903-5</p>
+                                                <button 
+                                                    onclick="copyToClipboard('65.007.903-5', this)" 
+                                                    class="copy-btn text-primary text-xl hover:text-accent-2"
+                                                    title="Copiar RUT"
+                                                >
+                                                    <i class="fa-solid fa-copy"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Campo Nro. de Cuenta con botón de copiar -->
+                                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-100 shadow-sm">
+                                            <p class="text-sm text-gray-500 uppercase tracking-wide font-semibold">Nro. de Cuenta</p>
+                                            <div class="flex items-center justify-between">
+                                                <p id="accountValue" class="text-xl font-mono font-bold text-gray-800">62900106128</p>
+                                                <button 
+                                                    onclick="copyToClipboard('62900106128', this)" 
+                                                    class="copy-btn text-primary text-xl hover:text-accent-2"
+                                                    title="Copiar Número de Cuenta"
+                                                >
+                                                    <i class="fa-solid fa-copy"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Refuerzo de la Acción Post-Transferencia con campo copiable -->
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl shadow-md flex items-start gap-4">
+                            <i class="fa-solid fa-circle-info text-blue-500 text-2xl mt-1 flex-shrink-0"></i>
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-blue-900 mb-1">Importante: Correo y Asunto Obligatorio</h4>
+                                <p class="text-blue-800 text-sm md:text-base leading-relaxed mb-3">
+                                    Debe enviar el comprobante de pago al siguiente correo electrónico:
+                                </p>
+                                
+                                <!-- Campo del Correo Clickeable/Copiable -->
+                                <div class="p-3 bg-white border border-blue-200 rounded-lg flex items-center justify-between shadow-sm">
+                                    <p id="emailValue" class="text-blue-800 font-semibold break-all text-sm md:text-base">
+                                        seminariobiblicop@gmail.com
+                                    </p>
+                                    <button 
+                                        onclick="copyToClipboard('seminariobiblicop@gmail.com', this)" 
+                                        class="copy-btn text-blue-600 text-lg hover:text-accent-2 ml-3 flex-shrink-0"
+                                        title="Copiar Correo"
+                                    >
+                                        <i class="fa-solid fa-copy"></i>
+                                    </button>
+                                </div>
+
+                                <p class="text-blue-800 text-sm md:text-base leading-relaxed mt-3">
+                                    Utilice uno de los siguientes asuntos para evitar demoras en la confirmación:
+                                </p>
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    <span class="font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs md:text-sm shadow-sm cursor-pointer hover:bg-blue-200 transition-colors" onclick="copyToClipboard('MATRICULA SEMINARIO', this)">
+                                        <i class="fa-solid fa-tags mr-1"></i> MATRICULA SEMINARIO
+                                    </span>
+                                    <span class="font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs md:text-sm shadow-sm cursor-pointer hover:bg-blue-200 transition-colors" onclick="copyToClipboard('MENSUALIDAD SEMINARIO', this)">
+                                        <i class="fa-solid fa-tags mr-1"></i> MENSUALIDAD SEMINARIO
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Columna Derecha: Valores y Contacto -->
+                    <div class="space-y-6">
+                        
+                        <!-- Tarjeta Matrícula -->
+                        <div class="bg-white rounded-xl shadow-lg border-t-4 border-accent-1 p-6 text-center hover:shadow-xl transition-shadow">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-yellow-50 rounded-full mb-3 text-accent-1">
+                                <i class="fa-solid fa-id-card text-2xl"></i>
+                            </div>
+                            <h4 class="text-gray-500 font-semibold uppercase text-sm tracking-wider">Valor Matrícula</h4>
+                            <p class="text-3xl font-extrabold text-gray-800 mt-2">$10.000</p>
+                        </div>
+
+                        <!-- Tarjeta Mensualidad -->
+                        <div class="bg-white rounded-xl shadow-lg border-t-4 border-accent-3 p-6 text-center hover:shadow-xl transition-shadow">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-orange-50 rounded-full mb-3 text-accent-3">
+                                <i class="fa-solid fa-calendar-check text-2xl"></i>
+                            </div>
+                            <h4 class="text-gray-500 font-semibold uppercase text-sm tracking-wider">Valor Mensualidad</h4>
+                            <p class="text-3xl font-extrabold text-gray-800 mt-2">$8.000</p>
+                        </div>
+
+                        <!-- Tarjeta Contacto -->
+                        <div class="bg-white rounded-xl shadow-lg border-t-4 border-accent-2 p-6">
+                            <h4 class="text-center font-bold text-gray-800 mb-4 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-headset text-accent-2"></i> Contacto Oficial
+                            </h4>
+                            <div class="space-y-4">
+                                <a href="https://wa.me/56971765198" target="_blank" class="flex items-center gap-3 p-3 rounded-lg hover:bg-green-50 transition-colors group">
+                                    <div class="bg-green-100 w-10 h-10 rounded-full flex items-center justify-center text-green-600 group-hover:bg-green-700 group-hover:text-white transition-colors duration-200">
+                                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                                    </div>
+                                    <span class="font-semibold text-gray-700 group-hover:text-green-700">+569 7176 5198</span>
+                                </a>
+                                <a href="mailto:seminariobiblicop@gmail.com" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 transition-colors group">
+                                    <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center text-blue-600 group-hover:bg-blue-700 group-hover:text-white transition-colors duration-200">
+                                        <i class="fa-solid fa-envelope text-lg"></i>
+                                    </div>
+                                    <span class="font-semibold text-gray-700 text-sm group-hover:text-blue-700 break-all">seminariobiblicop@gmail.com</span>
+                                
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- NUEVO CONTENIDO PESTAÑA: HERRAMIENTAS BÍBLICAS -->
+            <div id="content-tools" class="hidden">
+                <div class="mb-8">
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary border-l-8 border-accent border-l-[var(--color-verde)] pl-4 rounded-l-lg">Herramientas Bíblicas y de Estudio</h2>
+                    <p class="text-gray-500 mt-2 pl-6 text-lg">Recursos externos esenciales para profundizar tu conocimiento de la Palabra.</p>
+                </div>
+                
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    
+                    <!-- Enlace 1: BibleGateway -->
+                    <a href="https://www.biblegateway.com/" target="_blank" class="tool-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-accent-1 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                        <div>
+                            <i class="fa-solid fa-book text-4xl text-accent-1 mb-4"></i>
+                            <h4 class="font-bold text-primary text-xl mb-2">BibleGateway</h4>
+                            <p class="description text-gray-600 text-sm">Plataforma líder para la lectura y estudio de la Biblia en múltiples versiones e idiomas, ideal para comparación y búsqueda rápida.</p>
+                        </div>
+                        <span class="mt-4 text-accent-1 font-semibold text-sm flex items-center">
+                            Ir al sitio <i class="fa-solid fa-arrow-right text-xs ml-2"></i>
+                        </span>
+                    </a>
+
+                    <!-- Enlace 2: Enduring Word -->
+                    <a href="https://es.enduringword.com/" target="_blank" class="tool-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-accent-2 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                        <div>
+                            <i class="fa-solid fa-comment-dots text-4xl text-accent-2 mb-4"></i>
+                            <h4 class="font-bold text-primary text-xl mb-2">Enduring Word</h4>
+                            <p class="description text-gray-600 text-sm">Comentario bíblico exhaustivo, verso por verso, en línea y gratuito. Excelente para obtener contexto y aplicación inmediata.</p>
+                        </div>
+                        <span class="mt-4 text-accent-2 font-semibold text-sm flex items-center">
+                            Ir al sitio <i class="fa-solid fa-arrow-right text-xs ml-2"></i>
+                        </span>
+                    </a>
+
+                    <!-- Enlace 3: Biblia Interlineal -->
+                    <a href="https://logosklogos.com/" target="_blank" class="tool-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-accent-3 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                        <div>
+                            <i class="fa-solid fa-language text-4xl text-accent-3 mb-4"></i>
+                            <h4 class="font-bold text-primary text-xl mb-2">Biblia Interlineal Griego/Hebreo</h4>
+                            <p class="description text-gray-600 text-sm">Herramienta fundamental para consultar el texto original Griego y Hebreo palabra por palabra, con traducción literal.</p>
+                        </div>
+                        <span class="mt-4 text-accent-3 font-semibold text-sm flex items-center">
+                            Ir al sitio <i class="fa-solid fa-arrow-right text-xs ml-2"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- Bloque de Dirección Académica -->
+            <div class="mt-16 pt-8 border-t border-gray-200 flex justify-center">
+                <div class="inline-block bg-white border border-gray-100 p-6 rounded-xl shadow-lg text-center">
+                    <p class="text-sm text-accent-1 uppercase tracking-wider mb-2 font-semibold">Dirección Académica</p>
+                    <p class="font-extrabold text-xl leading-snug text-primary">Cristóbal Yévenes</p>
+                    <p class="font-extrabold text-xl leading-snug text-primary">& Estrella Solorza</p>
+                </div>
+            </div>
+
+
+            <footer class="mt-8 text-center text-gray-400 text-sm pb-8 pt-4">
+                <p class="font-semibold">&copy; 2025 Seminario Bíblico Logos</p>
+                <p class="text-xs mt-1">Material exclusivo para estudiantes regulares.</p>
+            </footer>
+
+        </main>
+    </div> <!-- Fin de main-content -->
+
+    <!-- MODAL Visor de Documentos -->
+    <!-- El modal se cierra al hacer clic fuera de su contenido (event.stopPropagation() previene esto en el contenido interno) -->
+    <div id="pdfViewerModal" class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center p-4 transition-opacity duration-300" onclick="closePdfViewer()">
+        <div class="bg-white rounded-xl w-full max-w-6xl h-[90vh] overflow-hidden shadow-2xl flex flex-col" onclick="event.stopPropagation()">
+            <!-- Header del Modal -->
+            <div class="flex justify-between items-center p-4 border-b border-gray-200 flex-shrink-0">
+                <h3 id="modalTitle" class="text-xl font-bold text-primary truncate">Previsualización de Documento</h3>
+                <button onclick="closePdfViewer()" class="text-gray-500 hover:text-primary transition-colors focus:outline-none p-2 rounded-full hover:bg-gray-100">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            <!-- Contenido del Modal (iFrame) -->
+            <!-- La altura del iframe ahora usa h-full y el padre tiene flex-col para ocupar el espacio restante -->
+            <div class="flex-grow w-full">
+                <iframe id="pdfIframe" src="" frameborder="0" class="w-full h-full"></iframe>
+            </div>
+            <!-- Footer para indicar acción de descarga -->
+            <div class="flex-shrink-0 p-3 bg-gray-50 border-t border-gray-200 text-sm text-gray-600 text-center">
+                <p><i class="fa-solid fa-info-circle text-primary mr-1"></i> Para descargar, utilice la opción de descarga dentro del visor o haga clic derecho en el documento.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- LÓGICA DE PESTAÑAS Y CARGA INICIAL -->
+    <script>
+        // Cargar estado de checkboxes al iniciar
+        window.onload = function() {
+            switchTab('year3');
+            loadProgress();
+        }
+
+        function switchTab(tabId) {
+            // IDs de contenidos. AÑADIDO 'content-tools'
+            const contents = ['content-year3', 'content-year6', 'content-documents', 'content-transfer', 'content-tools'];
+            // IDs de botones. AÑADIDO 'tab-tools'
+            const buttons = ['tab-year3', 'tab-year6', 'tab-documents', 'tab-transfer', 'tab-tools'];
+            
+            // Ocultar todos los contenidos y desactivar botones
+            contents.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.classList.add('hidden');
+                    element.classList.remove('fade-in'); 
+                }
+            });
+            
+            buttons.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.classList.remove('active');
+                }
+            });
+
+            // Mostrar el seleccionado y aplicar animación
+            const contentToShow = document.getElementById('content-' + tabId);
+            const buttonToActivate = document.getElementById('tab-' + tabId);
+            
+            if (contentToShow && buttonToActivate) {
+                contentToShow.classList.remove('hidden');
+                contentToShow.classList.add('fade-in');
+                buttonToActivate.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
